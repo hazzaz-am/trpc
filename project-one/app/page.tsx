@@ -1,11 +1,14 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-import { LoginForm } from "@/components/login-form";
-
-export default function HomePage() {
+export default function LandingPage() {
 	return (
-		<div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-			<div className="flex w-full max-w-sm flex-col gap-6">
-				<LoginForm />
+		<div className="flex items-center justify-center h-screen">
+			<div className="text-center">
+				<h2>This is Landing Page</h2>
+				<Link href={"/login"}>
+					<Button>Login</Button>
+				</Link>
 			</div>
 		</div>
 	);
