@@ -1,6 +1,6 @@
 import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-export const usersTable = pgTable("users", {
+export const user = pgTable("users", {
 	id: text("id").primaryKey(),
 	name: text("name").notNull(),
 	email: text("email").notNull().unique(),
@@ -10,11 +10,11 @@ export const usersTable = pgTable("users", {
 	updatedAt: timestamp("updatedAt").notNull(),
 });
 
-export const sessionsTable = pgTable("sessions", {
+export const session = pgTable("sessions", {
 	id: text("id").primaryKey(),
 	userId: text("userId")
 		.notNull()
-		.references(() => usersTable.id, { onDelete: "cascade" }),
+		.references(() => user.id, { onDelete: "cascade" }),
 	token: text("token").notNull().unique(),
 	expiresAt: timestamp("expiresAt").notNull(),
 	ipAddress: text("ipAddress"),
@@ -23,12 +23,13 @@ export const sessionsTable = pgTable("sessions", {
 	updatedAt: text("updatedAt").notNull(),
 });
 
-export const accountsTable = pgTable("accounts", {
+export const account = pgTable("accounts", {
 	id: text("id").primaryKey(),
 	userId: text("userId")
 		.notNull()
-		.references(() => usersTable.id, { onDelete: "cascade" }),
+		.references(() => user.id, { onDelete: "cascade" }),
 	accountId: text("accountId").notNull(),
+	providerId: text('providerId').notNull(),
 	accessToken: text("accessToken"),
 	refreshToken: text("refreshToken"),
 	accessTokenExpiresAt: timestamp("accessTokenExpiresAt"),
@@ -40,7 +41,7 @@ export const accountsTable = pgTable("accounts", {
 	updatedAt: text("updatedAt"),
 });
 
-export const verificationsTable = pgTable("verifications", {
+export const verification = pgTable("verifications", {
 	id: text("id").primaryKey(),
 	identifier: text("identifier").notNull(),
 	value: text("value").notNull(),
