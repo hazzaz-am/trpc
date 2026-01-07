@@ -15,6 +15,13 @@
       "when": 1767524631910,
       "tag": "0001_melted_the_spike",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1767801091205,
+      "tag": "0002_worried_revanche",
+      "breakpoints": true
     }
   ]
 }
