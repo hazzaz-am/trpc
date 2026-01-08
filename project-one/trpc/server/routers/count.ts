@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { createTRPCRouter, privateProcedure, publicProcedure } from "../init";
 import { count } from "@/db/schema";
 import { TRPCError } from "@trpc/server";
-import { z } from "better-auth";
+import { z } from "zod";
 
 export const countRouter = createTRPCRouter({
 	createCount: privateProcedure.mutation(async ({ ctx }) => {
@@ -67,10 +67,13 @@ export const countRouter = createTRPCRouter({
 				});
 			}
 
-			await ctx.db.update(count).set({
-				count: input.isIncreasing
-					? existingCount.count + 1
-					: existingCount.count - 1,
-			});
+			await ctx.db
+				.update(count)
+				.set({
+					count: input.isIncreasing
+						? existingCount.count + 1
+						: existingCount.count - 1,
+				})
+				.where(eq(count.userId, ctx.user.id));
 		}),
 });
