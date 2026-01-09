@@ -14,8 +14,8 @@ export default function LandingPageContents() {
 		<div className="flex items-center justify-center h-screen">
 			<div className="text-center">
 				<h2>This is Landing Page</h2>
-				<div className="bg-green-400 text-green-600 p-4 rounded-md">
-					Count is: {data.count}
+				<div className="bg-green-100 my-4 text-green-600 p-4 rounded-md">
+					{data?.count ? `Count is: ${data.count}` : "No Count Found"}
 				</div>
 				<Link href={"/login"}>
 					<Button>Login</Button>

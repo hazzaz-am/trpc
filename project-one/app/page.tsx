@@ -20,7 +20,7 @@ export default async function LandingPage() {
 		<HydrationBoundary state={dehydrate(queryClient)}>
 			<ErrorBoundary
 				fallback={
-					<div className="bg-red-400 p-4 rounded-md text-red-600">
+					<div className="bg-red-100 p-4 rounded-md text-red-600">
 						There was an error
 					</div>
 				}

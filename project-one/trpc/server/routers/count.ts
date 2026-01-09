@@ -3,6 +3,7 @@ import { createTRPCRouter, privateProcedure, publicProcedure } from "../init";
 import { count } from "@/db/schema";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { uuid } from "@/lib/utils";
 
 export const countRouter = createTRPCRouter({
 	createCount: privateProcedure.mutation(async ({ ctx }) => {
@@ -18,7 +19,7 @@ export const countRouter = createTRPCRouter({
 		}
 
 		await ctx.db.insert(count).values({
-			id: `${Date.now()}`,
+			id: uuid(),
 			count: 1,
 			userId: ctx.user.id,
 		});
@@ -44,14 +45,14 @@ export const countRouter = createTRPCRouter({
 				where: eq(count.id, input.countId),
 			});
 
-			if (!findCount) {
-				throw new TRPCError({
-					code: "INTERNAL_SERVER_ERROR",
-					message: "Count not found",
-				});
-			}
+			// if (!findCount) {
+			// 	throw new TRPCError({
+			// 		code: "INTERNAL_SERVER_ERROR",
+			// 		message: "Count not found",
+			// 	});
+			// }
 
-			return findCount;
+			return findCount ?? {count: undefined, id: undefined, userId: undefined};
 		}),
 	updateCount: privateProcedure
 		.input(z.object({ isIncreasing: z.boolean() }))
